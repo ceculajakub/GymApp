@@ -42,5 +42,15 @@ namespace GymApp.Services.ExcerciseService
 
             return _mapper.Map<ExcerciseFormModel>(excercise);
         }
+
+
+        public void Delete(long exerciseId)
+        {
+            var entity = _context.Exercises
+                .Where(x => x.Id == exerciseId)
+                .FirstOrDefault();
+            _context.Exercises.Remove(entity);
+            _context.SaveChanges();
+        }
     }
 }

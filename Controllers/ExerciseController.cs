@@ -51,5 +51,13 @@ namespace GymApp.Controllers
 
             return result;
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(long id)
+        {
+            ExerciseService.Delete(id);
+
+            return Ok();
+        }
     }
 }
