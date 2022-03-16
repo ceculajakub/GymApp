@@ -39,19 +39,23 @@ namespace GymApp.Models.Api
         #region TrainigMap()
         protected void TrainingMap()
         {
-            CreateMap<Models.Api.Training.TrainingViewModel, Models.DataBase.Training>()
+            CreateMap<Training.TrainingViewModel, DataBase.Training>()
                 .ForMember(p => p.TrainingPlan, o => o.Ignore())
                 .ForMember(p => p.ExercisesDone, o => o.Ignore());
 
-            CreateMap<Models.DataBase.Training, Models.Api.Training.TrainingFormModel>()
+            CreateMap<DataBase.Training, Training.TrainingFormModel>()
                 .ForMember(p => p.ExercisesDone, o => o.Ignore());
 
-            CreateMap<Models.Api.Training.TrainingFormModel, Models.DataBase.Training>()
+            CreateMap<Training.TrainingFormModel, DataBase.Training>()
                 .ForMember(p => p.UserId, o => o.Ignore())
                 .ForMember(p => p.ExecutionTime, o => o.Ignore())
                 .ForMember(p => p.Id, o => o.Ignore())
                 .ForMember(p => p.ExercisesDone, o => o.Ignore())
                 .ForMember(p => p.TrainingPlan, o => o.Ignore());
+
+            CreateMap<DataBase.Training, Training.TrainingViewModel>()
+                .ForMember(p => p.ExercisesDone, o => o.Ignore());
+
         }
         #endregion
 
