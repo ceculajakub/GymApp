@@ -33,6 +33,11 @@ namespace GymApp.Models.Api
 
             CreateMap<Models.DataBase.User, Models.Api.User.UserFormModel>()
                 .ForMember(p => p.Password, o => o.Ignore());
+
+
+            CreateMap<DataBase.User, Models.Api.User.UserViewModel>();
+            
+
         }
         #endregion
 
@@ -54,7 +59,8 @@ namespace GymApp.Models.Api
                 .ForMember(p => p.TrainingPlan, o => o.Ignore());
 
             CreateMap<DataBase.Training, Training.TrainingViewModel>()
-                .ForMember(p => p.ExercisesDone, o => o.Ignore());
+                .ForMember(p => p.ExercisesDone, o => o.MapFrom(x => x.ExercisesDone));
+
 
         }
         #endregion
@@ -66,8 +72,10 @@ namespace GymApp.Models.Api
                 .ForMember(p => p.Training, o => o.Ignore())
                 .ForMember(p => p.TrainingId, o => o.Ignore());
 
-            //CreateMap<DataBase.ExerciseDone, ExerciseDone.FormModel>()
-            //    .ForMember(p=> p.Length)
+            CreateMap<DataBase.ExerciseDone, ExerciseDone.ExerciseDoneViewModel>();
+                
+                
+               
         }
 
         protected void TrainingPlanMap()

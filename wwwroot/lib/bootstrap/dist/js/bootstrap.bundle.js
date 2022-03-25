@@ -281,7 +281,10 @@
       this._removeElement(rootElement);
     };
 
-    _proto.dispose = function dispose() {
+          _proto.
+        
+              
+              = function dispose() {
       $.removeData(this._element, DATA_KEY);
       this._element = null;
     } // Private

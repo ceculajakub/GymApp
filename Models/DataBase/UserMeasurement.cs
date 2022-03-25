@@ -8,6 +8,7 @@ namespace GymApp.Models.DataBase
         public long Id { get; set; }
         public int Type { get; set; }
         public long Value { get; set; }
+        public decimal Bmi { get; set; }
 
         public User User { get; set; }
     }

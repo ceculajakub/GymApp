@@ -22,7 +22,8 @@ namespace GymApp.Models.DataBase
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public int Weight { get; set; }
-        public int Height { get; set; }
+        public double Height { get; set; }
+        public string Gender { get; set; }
 
         public ICollection<UserGoal> UserGoals { get; set; }
         public ICollection<TrainingPlan> TrainingPlans { get; set; }

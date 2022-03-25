@@ -41,6 +41,10 @@ namespace GymApp.Services.UserService
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            if (user.Height > 100)
+            {
+                user.Height /= 100;
+            }
 
             context.Users.Add(user);
             context.SaveChanges();
@@ -101,12 +105,18 @@ namespace GymApp.Services.UserService
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
             }
-
+            
+            
             user.Height = updateUser.Height > 0 ? updateUser.Height : user.Height;
             user.Weight = updateUser.Weight > 0 ? updateUser.Weight : user.Weight;
             if (!String.IsNullOrEmpty(updateUser.Username))
                 user.Username = updateUser.Username;
-
+            if(!String.IsNullOrEmpty(updateUser.Gender))
+                user.Gender = updateUser.Gender;
+            if (user.Height > 100)
+            {
+                user.Height /= 100;
+            }
             context.Users.Update(user);
             context.SaveChanges();
 
