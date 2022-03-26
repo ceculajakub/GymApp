@@ -15,9 +15,9 @@ namespace GymApp.Models.Api
             ExerciseDoneMap();
             TrainingPlanMap();
             ExerciseMap();
+            UserMeasurementsMap();
         }
 
-        #region UserMap()
         protected void UserMap()
         {
             CreateMap<Models.Api.User.UserViewModel, Models.DataBase.User>()
@@ -36,12 +36,9 @@ namespace GymApp.Models.Api
 
 
             CreateMap<DataBase.User, Models.Api.User.UserViewModel>();
-            
 
         }
-        #endregion
-
-        #region TrainigMap()
+ 
         protected void TrainingMap()
         {
             CreateMap<Training.TrainingViewModel, DataBase.Training>()
@@ -61,22 +58,29 @@ namespace GymApp.Models.Api
             CreateMap<DataBase.Training, Training.TrainingViewModel>()
                 .ForMember(p => p.ExercisesDone, o => o.MapFrom(x => x.ExercisesDone));
 
-
         }
-        #endregion
 
-        #region ExerciseDoneMap()
         protected void ExerciseDoneMap()
         {
-            CreateMap<ExercisesDone.ExcerciseDoneFormModel, DataBase.ExerciseDone>()
+            CreateMap<ExercisesDone.ExerciseDoneFormModel, DataBase.ExerciseDone>()
                 .ForMember(p => p.Training, o => o.Ignore())
                 .ForMember(p => p.TrainingId, o => o.Ignore());
 
             CreateMap<DataBase.ExerciseDone, ExerciseDone.ExerciseDoneViewModel>();
-                
-                
-               
+  
         }
+
+        protected void UserMeasurementsMap()
+        {
+            CreateMap<UserMeasurements.UserMeasurementsFormModel, DataBase.UserMeasurement>()
+                .ForMember(p => p.User, o => o.Ignore());
+            CreateMap<DataBase.UserMeasurement, UserMeasurements.UserMeasurementsViewModel>();
+                
+        }
+
+
+
+
 
         protected void TrainingPlanMap()
         {
@@ -88,18 +92,16 @@ namespace GymApp.Models.Api
                 .ForMember(p => p.TrainingPlanExercises, o => o.Ignore())
                 .ForMember(p => p.User, o => o.Ignore());
         }
-        #endregion
-
-        #region ExerciseMap()
+        
         protected void ExerciseMap()
         {
-            CreateMap<Exercise.ExcerciseFormModel, DataBase.Exercise>()
+            CreateMap<Exercise.ExerciseFormModel, DataBase.Exercise>()
                 .ForMember(p => p.Id, o => o.Ignore())
                 .ForMember(p => p.TrainingPlanExercises, o => o.Ignore());
 
 
-            CreateMap<DataBase.Exercise, Exercise.ExcerciseFormModel>();
+            CreateMap<DataBase.Exercise, Exercise.ExerciseFormModel>();
         }
-        #endregion
+        
     }
 }

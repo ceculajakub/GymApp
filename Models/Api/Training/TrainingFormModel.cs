@@ -6,6 +6,6 @@ namespace GymApp.Models.Api.Training
     {
         public long TrainingPlanId { get; set; }
         public string Attention { get; set; }
-        public List<ExcerciseDoneFormModel> ExercisesDone { get; set; }
+        public List<ExerciseDoneFormModel> ExercisesDone { get; set; }
     }
 }

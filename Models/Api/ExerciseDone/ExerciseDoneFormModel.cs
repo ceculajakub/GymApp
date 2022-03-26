@@ -1,6 +1,6 @@
 ﻿namespace GymApp.Models.Api.ExercisesDone
 {
-    public class ExcerciseDoneFormModel
+    public class ExerciseDoneFormModel
     {
         public long ExerciseId { get; set; }
         public long Reps { get; set; }

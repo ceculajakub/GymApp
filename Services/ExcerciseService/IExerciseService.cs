@@ -2,13 +2,13 @@
 using GymApp.Models.DataBase;
 using System.Collections.Generic;
 
-namespace GymApp.Services.ExcerciseService
+namespace GymApp.Services.ExerciseService
 {
     public interface IExerciseService
     {
-        Exercise Create(ExcerciseFormModel model);
-        List<ExcerciseFormModel> GetList();
-        ExcerciseFormModel Fetch(long id);
+        Exercise Create(ExerciseFormModel model);
+        List<ExerciseFormModel> GetList();
+        ExerciseFormModel Fetch(long id);
         void Delete( long exerciseId);
     }
 }

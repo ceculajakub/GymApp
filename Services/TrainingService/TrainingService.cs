@@ -2,7 +2,7 @@
 using GymApp.Data;
 using GymApp.Models.Api.Training;
 using GymApp.Models.DataBase;
-using GymApp.Services.ExcerciseDoneService;
+using GymApp.Services.ExerciseDoneService;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,8 @@ namespace GymApp.Services.TrainingService
     {
         private readonly DataContext _context;
         private IMapper _mapper { get; }
-        private IExceriseDoneService _exerciseDoneService { get; set; }
-        public TrainingService(DataContext context, IMapper mapper, IExceriseDoneService exerciseDoneService)
+        private IExerciseDoneService _exerciseDoneService { get; set; }
+        public TrainingService(DataContext context, IMapper mapper, IExerciseDoneService exerciseDoneService)
         {
             _context = context;
             _mapper = mapper;

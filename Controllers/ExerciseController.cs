@@ -1,6 +1,6 @@
 ﻿using GymApp.Models.Api;
 using GymApp.Models.Api.Exercise;
-using GymApp.Services.ExcerciseService;
+using GymApp.Services.ExerciseService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace GymApp.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Create([FromBody] ExcerciseFormModel model)
+        public ActionResult Create([FromBody] ExerciseFormModel model)
         {
             var result = ExerciseService.Create(model);
 
@@ -32,7 +32,7 @@ namespace GymApp.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<List<ExcerciseFormModel>> GetList()
+        public ActionResult<List<ExerciseFormModel>> GetList()
         {
             var result = ExerciseService.GetList();
 
@@ -43,7 +43,7 @@ namespace GymApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ExcerciseFormModel> Fetch(long id)
+        public ActionResult<ExerciseFormModel> Fetch(long id)
         {
             var result = ExerciseService.Fetch(id);
             if (result == null)

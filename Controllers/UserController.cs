@@ -3,6 +3,7 @@ using GymApp.Models.Api.User;
 using GymApp.Services.UserService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace GymApp.Controllers
 {
@@ -21,7 +22,7 @@ namespace GymApp.Controllers
 
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Login([FromBody]UserLoginModel model)
+        public ActionResult Login([FromBody] UserLoginModel model)
         {
             if (UserService.UserExists(model.Username))
                 return Ok();
@@ -30,7 +31,7 @@ namespace GymApp.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult Register([FromBody]UserFormModel model)
+        public ActionResult Register([FromBody] UserFormModel model)
         {
             model.Username = model.Username.ToLower();
 
@@ -52,9 +53,20 @@ namespace GymApp.Controllers
 
             return Mapper.Map<UserViewModel>(user);
         }
+        [HttpGet("{id}/getBMI")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<double> GetBmi(long id)
+        {
+            var result = UserService.GetBmi(id);
+
+            if (result <= 0)
+                return BadRequest();
+
+            return Math.Round(result, 2);
+        }
 
         [HttpPost("{id}")]
-        public ActionResult Update(long id, [FromBody]UserFormModel model)
+        public ActionResult Update(long id, [FromBody] UserFormModel model)
         {
             var user = UserService.Fetch(id);
 
@@ -65,5 +77,7 @@ namespace GymApp.Controllers
 
             return Ok();
         }
+       
+        
     }
 }

@@ -1,11 +1,12 @@
 using AutoMapper;
 using GymApp.Data;
 using GymApp.Models.Api;
-using GymApp.Services.ExcerciseDoneService;
-using GymApp.Services.ExcerciseService;
+using GymApp.Services.ExerciseDoneService;
+using GymApp.Services.ExerciseService;
 using GymApp.Services.TrainingPlanService;
 using GymApp.Services.TrainingService;
 using GymApp.Services.UserService;
+using GymApp.Services.UserMeasurementsService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -39,10 +40,11 @@ namespace GymApp
             services.AddSingleton(mapper);
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IExceriseDoneService, ExerciseDoneService>();
+            services.AddScoped<IExerciseDoneService, ExerciseDoneService>();
             services.AddScoped<IExerciseService, ExerciseService>();
             services.AddScoped<ITrainingPlanService, TrainingPlanService>();
             services.AddScoped<ITrainingService, TrainingService>();
+            services.AddScoped<IUserMeasurementsService, UserMeasurementsService>();
 
             services.AddScoped<AutoMapperProfile>();
 
@@ -64,6 +66,7 @@ namespace GymApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
             else
             {

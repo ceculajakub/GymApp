@@ -44,7 +44,7 @@ namespace GymApp.Controllers
 
         [HttpPost("{id}/update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Create(long id, [FromBody] TrainingFormModel model)
+        public ActionResult Update(long id, [FromBody] TrainingFormModel model)
         {
             var result = trainingService.Update(model, id);
 

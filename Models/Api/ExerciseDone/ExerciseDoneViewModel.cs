@@ -9,11 +9,5 @@
         public long Weight  { get; set; }
         public string Equipment { get; set; }
 
-
-
-
-
-
-
     }
 }

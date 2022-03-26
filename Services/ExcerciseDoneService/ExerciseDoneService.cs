@@ -5,9 +5,9 @@ using GymApp.Models.DataBase;
 using GymApp.Services.TrainingService;
 using System.Collections.Generic;
 
-namespace GymApp.Services.ExcerciseDoneService
+namespace GymApp.Services.ExerciseDoneService
 {
-    public class ExerciseDoneService : IExceriseDoneService
+    public class ExerciseDoneService : IExerciseDoneService
     {
         private readonly DataContext _context;
         private IMapper _mapper { get; }
@@ -17,9 +17,9 @@ namespace GymApp.Services.ExcerciseDoneService
             _mapper = mapper;
         }
 
-        public void Create(List<ExcerciseDoneFormModel> excercises, long trainingId)
+        public void Create(List<ExerciseDoneFormModel> Exercises, long trainingId)
         {
-            foreach(var exercise in excercises)
+            foreach(var exercise in Exercises)
             {
                 var entity = _mapper.Map<ExerciseDone>(exercise);
                 entity.TrainingId = trainingId;

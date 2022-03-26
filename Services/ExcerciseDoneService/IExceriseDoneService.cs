@@ -1,10 +1,10 @@
 ﻿using GymApp.Models.Api.ExercisesDone;
 using System.Collections.Generic;
 
-namespace GymApp.Services.ExcerciseDoneService
+namespace GymApp.Services.ExerciseDoneService
 {
-    public interface IExceriseDoneService
+    public interface IExerciseDoneService
     {
-        void Create(List<ExcerciseDoneFormModel> excercises, long trainingId);
+        void Create(List<ExerciseDoneFormModel> Exercises, long trainingId);
     }
 }

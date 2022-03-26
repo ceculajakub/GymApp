@@ -5,7 +5,7 @@ using GymApp.Models.DataBase;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GymApp.Services.ExcerciseService
+namespace GymApp.Services.ExerciseService
 {
     public class ExerciseService : IExerciseService
     {
@@ -17,7 +17,7 @@ namespace GymApp.Services.ExcerciseService
             _mapper = mapper;
         }
 
-        public Exercise Create(ExcerciseFormModel model)
+        public Exercise Create(ExerciseFormModel model)
         {
             var entity = _mapper.Map<Exercise>(model);
 
@@ -27,20 +27,20 @@ namespace GymApp.Services.ExcerciseService
             return entity;
         }
 
-        public List<ExcerciseFormModel> GetList()
+        public List<ExerciseFormModel> GetList()
         {
-            var excercises = _context.Exercises.ToList();
+            var Exercises = _context.Exercises.ToList();
 
-            return _mapper.Map<List<ExcerciseFormModel>>(excercises);
+            return _mapper.Map<List<ExerciseFormModel>>(Exercises);
         }
 
-        public ExcerciseFormModel Fetch(long id)
+        public ExerciseFormModel Fetch(long id)
         {
-            var excercise = _context.Exercises
+            var Exercise = _context.Exercises
                                 .Where(x => x.Id == id)
                                 .FirstOrDefault();
 
-            return _mapper.Map<ExcerciseFormModel>(excercise);
+            return _mapper.Map<ExerciseFormModel>(Exercise);
         }
 
 
