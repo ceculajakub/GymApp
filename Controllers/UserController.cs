@@ -53,17 +53,7 @@ namespace GymApp.Controllers
 
             return Mapper.Map<UserViewModel>(user);
         }
-        [HttpGet("{id}/getBMI")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<double> GetBmi(long id)
-        {
-            var result = UserService.GetBmi(id);
-
-            if (result <= 0)
-                return BadRequest();
-
-            return Math.Round(result, 2);
-        }
+        
 
         [HttpPost("{id}")]
         public ActionResult Update(long id, [FromBody] UserFormModel model)

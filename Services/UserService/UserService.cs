@@ -122,19 +122,6 @@ namespace GymApp.Services.UserService
 
             return user;
         }
-        public double GetBmi(long uid)
-        {
-            var height = context.Users
-                                .Where(p => p.Id == uid)
-                                .Select(p => p.Height)
-                                .FirstOrDefault();
-            var weight = context.Users
-                                .Where(p => p.Id == uid)
-                                .Select(p => p.Weight)
-                                .FirstOrDefault();
-            var result = weight / Math.Pow(height, 2);
-
-            return result;
-        }
+      
     }
 }

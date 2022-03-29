@@ -10,6 +10,6 @@ namespace GymApp.Services.UserService
         bool UserExists(string userName);
         User Fetch(long id);
         User Update(UserFormModel model, User user);
-        double GetBmi(long UserId);
+        
     }
 }

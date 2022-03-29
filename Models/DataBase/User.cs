@@ -24,6 +24,7 @@ namespace GymApp.Models.DataBase
         public int Weight { get; set; }
         public double Height { get; set; }
         public string Gender { get; set; }
+        public double Bmi { get; set; }
 
         public ICollection<UserGoal> UserGoals { get; set; }
         public ICollection<TrainingPlan> TrainingPlans { get; set; }
