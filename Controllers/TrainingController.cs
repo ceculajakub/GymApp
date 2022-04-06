@@ -18,7 +18,7 @@ namespace GymApp.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult Create([FromBody] TrainingFormModel model)
         {
@@ -64,17 +64,6 @@ namespace GymApp.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult GetList()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var result = trainingService.GetList(long.Parse(userId));
-
-            if (result == null)
-                return NotFound();
-
-            return Ok();
-        }
+    
     }
 }

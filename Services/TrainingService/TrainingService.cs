@@ -41,14 +41,7 @@ namespace GymApp.Services.TrainingService
             return training;
         }
 
-        public List<TrainingViewModel> GetList(long userId)
-        {
-                var entities = _context.Trainings
-                                    .Where(p => p.UserId == userId)
-                                    .ToList();
-
-                return _mapper.Map<List<TrainingViewModel>>(entities);
-        }
+        
 
         public TrainingViewModel Fetch(long trainingId)
         {

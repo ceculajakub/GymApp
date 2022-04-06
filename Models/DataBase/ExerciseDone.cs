@@ -16,6 +16,7 @@ namespace GymApp.Models.DataBase
         public long Reps { get; set; }
         public long Weight { get; set; }
         public string Equipment { get; set; }
+        public int Pulse { get; set; }
 
         public Training Training { get; set; }
     }

@@ -8,6 +8,7 @@
         public long Reps { get; set; }
         public long Weight  { get; set; }
         public string Equipment { get; set; }
+        public int Pulse { get; set; }
 
     }
 }
