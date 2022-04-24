@@ -30,6 +30,7 @@ namespace GymApp
         {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
+            
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

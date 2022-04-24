@@ -5,20 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 
 namespace GymApp.Data
 {
     public class DataContext : DbContext
     {
-        private const string connectionString = @"Server=localhost;Database=GymApp;Trusted_Connection=True;";
+
+        public readonly string _connectionString;
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            
+            _connectionString = ((SqlServerOptionsExtension)options.Extensions.First()).ConnectionString;
+       
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(_connectionString);
         }
 
 
