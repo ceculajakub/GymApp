@@ -4,19 +4,40 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace GymApp.Data
 {
     public class DataContext : DbContext
     {
+        private const string connectionString = @"Server=localhost;Database=GymApp;Trusted_Connection=True;";
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
+            
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<User>()
+                .Property(p => p.Bmi)
+                .HasComputedColumnSql($"[Weight] / ([Height] * [Height]");
+
+            builder.Entity<Training>()
+                .Property(x => x.AvgPulse)
+                .HasComputedColumnSql($"AVG([ExerciseDone.Pulse])");
+                
+            
+                
+                
         }
 
         public DbSet<User> Users { get; set; }

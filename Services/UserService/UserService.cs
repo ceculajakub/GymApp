@@ -113,7 +113,7 @@ namespace GymApp.Services.UserService
                 user.Username = updateUser.Username;
             if(!String.IsNullOrEmpty(updateUser.Gender))
                 user.Gender = updateUser.Gender;
-            user.Bmi = updateUser.Bmi > 0 ? updateUser.Bmi : user.Bmi;
+            
             if (user.Height > 100)
             {
                 user.Height /= 100;

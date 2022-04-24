@@ -4,14 +4,16 @@ using GymApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GymApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220424141213_GymApp")]
+    partial class GymApp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,8 @@ namespace GymApp.Migrations
                     b.Property<string>("Attention")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AvgPulse")
+                    b.Property<int?>("AvgPulse")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ExecutionTime")
@@ -159,8 +162,7 @@ namespace GymApp.Migrations
                     b.Property<double>("Bmi")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("float")
-                        .HasComputedColumnSql("[Weight] / ([Height] * [Height]")
-                        .HasMaxLength(4);
+                        .HasComputedColumnSql("[Weight] / ([Height] * [Height])");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");

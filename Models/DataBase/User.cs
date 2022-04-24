@@ -21,12 +21,12 @@ namespace GymApp.Models.DataBase
         public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public int Weight { get; set; }
+        public double Weight { get; set; }
         public double Height { get; set; }
         public string Gender { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public double Bmi { get; set; }
+        
+        public double Bmi { get; private set; }
 
         public ICollection<UserGoal> UserGoals { get; set; }
         public ICollection<TrainingPlan> TrainingPlans { get; set; }
