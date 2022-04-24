@@ -12,7 +12,9 @@ namespace GymApp.Models.Api.Training
         public long UserId { get; set; }
         public DateTime ExecutionTime { get; set; }
         public string Attention { get; set; }
-        public int AvgPulse { get; set; }
+        public double AvgPulse { get; set; }
+        
+        
 
         public List<ExerciseDoneViewModel> ExercisesDone { get; set; }
     }

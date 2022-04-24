@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GymApp.Models.Api
 {
@@ -47,6 +49,7 @@ namespace GymApp.Models.Api
 
             CreateMap<DataBase.Training, Training.TrainingFormModel>()
                 .ForMember(p => p.ExercisesDone, o => o.Ignore());
+                
 
             CreateMap<Training.TrainingFormModel, DataBase.Training>()
                 .ForMember(p => p.UserId, o => o.Ignore())
@@ -55,8 +58,15 @@ namespace GymApp.Models.Api
                 .ForMember(p => p.ExercisesDone, o => o.Ignore())
                 .ForMember(p => p.TrainingPlan, o => o.Ignore());
 
+
             CreateMap<DataBase.Training, Training.TrainingViewModel>()
-                .ForMember(p => p.ExercisesDone, o => o.MapFrom(x => x.ExercisesDone));
+                .ForMember(p => p.ExercisesDone, o => o.MapFrom(x => x.ExercisesDone))
+                .ForMember(p => p.AvgPulse, o =>
+                {
+                    o.MapFrom(x => x.ExercisesDone.Average(z => z.Pulse));
+                });
+                
+
 
         }
 

@@ -14,17 +14,21 @@ namespace GymApp.Data
     public class DataContext : DbContext
     {
 
-        public readonly string _connectionString;
+        
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            _connectionString = ((SqlServerOptionsExtension)options.Extensions.First()).ConnectionString;
+            
        
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+          .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+          .AddJsonFile("appsettings.json")
+          .Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         }
 
 
@@ -37,9 +41,7 @@ namespace GymApp.Data
                 .Property(p => p.Bmi)
                 .HasComputedColumnSql($"[Weight] / ([Height] * [Height]");
 
-            builder.Entity<Training>()
-                .Property(x => x.AvgPulse)
-                .HasComputedColumnSql($"AVG([ExerciseDone.Pulse])");
+            
                 
             
                 

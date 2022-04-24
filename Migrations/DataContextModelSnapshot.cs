@@ -82,9 +82,6 @@ namespace GymApp.Migrations
                     b.Property<string>("Attention")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AvgPulse")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ExecutionTime")
                         .HasColumnType("datetime2");
 
@@ -159,8 +156,7 @@ namespace GymApp.Migrations
                     b.Property<double>("Bmi")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("float")
-                        .HasComputedColumnSql("[Weight] / ([Height] * [Height]")
-                        .HasMaxLength(4);
+                        .HasComputedColumnSql("[Weight] / ([Height] * [Height]");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");

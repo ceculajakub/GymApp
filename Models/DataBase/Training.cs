@@ -21,9 +21,6 @@ namespace GymApp.Models.DataBase
         public DateTime ExecutionTime { get; set; }
         public string Attention { get; set; }
 
-        
-        public int AvgPulse { get; private set; }
-
         public TrainingPlan TrainingPlan { get; set; }
         public ICollection<ExerciseDone> ExercisesDone { get; set; }
     }
