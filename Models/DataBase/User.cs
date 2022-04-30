@@ -17,16 +17,16 @@ namespace GymApp.Models.DataBase
         }
 
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public float Weight { get; set; }
-        public float Height { get; set; }
+        public double Weight { get; set; }
+        public double Height { get; set; }
         public string Gender { get; set; }
 
         
-        public float Bmi { get; private set; }
+        public double Bmi { get; private set; }
 
         public ICollection<UserGoal> UserGoals { get; set; }
         public ICollection<TrainingPlan> TrainingPlans { get; set; }

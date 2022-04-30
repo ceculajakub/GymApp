@@ -30,7 +30,7 @@ namespace GymApp.Services.UserMeasurementsService
 
             return measurement;
         }
-        public List<UserMeasurementsViewModel> Fetch(int uid)
+        public List<UserMeasurementsViewModel> Fetch(long uid)
         {
             var result = context.UserMeasurements
                                 .Where(p => p.Id == uid)
@@ -38,7 +38,7 @@ namespace GymApp.Services.UserMeasurementsService
 
             return mapper.Map<List<UserMeasurementsViewModel>>(result);
         }
-        public UserMeasurement Update(UserMeasurementsFormModel model, int measurementId)
+        public UserMeasurement Update(UserMeasurementsFormModel model, long measurementId)
         {
             var entity = context.UserMeasurements
                                 .Where(p => p.Id == measurementId)

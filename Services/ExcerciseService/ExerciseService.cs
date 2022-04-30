@@ -34,7 +34,7 @@ namespace GymApp.Services.ExerciseService
             return _mapper.Map<List<ExerciseFormModel>>(Exercises);
         }
 
-        public ExerciseFormModel Fetch(int id)
+        public ExerciseFormModel Fetch(long id)
         {
             var Exercise = _context.Exercises
                                 .Where(x => x.Id == id)
@@ -44,7 +44,7 @@ namespace GymApp.Services.ExerciseService
         }
 
 
-        public void Delete(int exerciseId)
+        public void Delete(long exerciseId)
         {
             var entity = _context.Exercises
                 .Where(x => x.Id == exerciseId)

@@ -43,7 +43,7 @@ namespace GymApp.Services.TrainingService
 
         
 
-        public TrainingViewModel Fetch(int trainingId)
+        public TrainingViewModel Fetch(long trainingId)
         {
             var entity = _context.Trainings
                                 .Where(p => p.Id == trainingId)
@@ -53,7 +53,7 @@ namespace GymApp.Services.TrainingService
             return _mapper.Map<TrainingViewModel>(entity);
         }
 
-        public Training Update(TrainingFormModel model, int trainingId)
+        public Training Update(TrainingFormModel model, long trainingId)
         {
             var entity = _context.Trainings
                                 .Where(p => p.Id == trainingId)
@@ -68,7 +68,7 @@ namespace GymApp.Services.TrainingService
             return result;
         }
 
-        public void Delete(int trainingId)
+        public void Delete(long trainingId)
         {
             var entity = _context.Trainings
                                 .Where(p => p.Id == trainingId)

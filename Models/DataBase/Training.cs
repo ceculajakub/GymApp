@@ -15,9 +15,9 @@ namespace GymApp.Models.DataBase
         }
 
         [Key]
-        public int Id { get; set; }
-        public int TrainingPlanId { get; set; }
-        public int UserId { get; set; }
+        public long Id { get; set; }
+        public long TrainingPlanId { get; set; }
+        public long UserId { get; set; }
         public DateTime ExecutionTime { get; set; }
         public string Attention { get; set; }
 

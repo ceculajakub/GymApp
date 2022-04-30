@@ -14,7 +14,7 @@ namespace GymApp.Models.DataBase
         }
 
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }

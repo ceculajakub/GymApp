@@ -2,10 +2,10 @@
 {
     public class UserMeasurementsViewModel
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public int UserId { get; set; }
         public int Type { get; set; }
-        public int Value { get; set; }
+        public long Value { get; set; }
         
 
     }

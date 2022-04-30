@@ -17,7 +17,7 @@ namespace GymApp.Services.ExerciseDoneService
             _mapper = mapper;
         }
 
-        public void Create(List<ExerciseDoneFormModel> Exercises, int trainingId)
+        public void Create(List<ExerciseDoneFormModel> Exercises, long trainingId)
         {
             foreach(var exercise in Exercises)
             {

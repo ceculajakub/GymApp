@@ -4,7 +4,7 @@ namespace GymApp.Models.Api.Training
 {
     public class TrainingFormModel
     {
-        public int TrainingPlanId { get; set; }
+        public long TrainingPlanId { get; set; }
         public string Attention { get; set; }
         public int AvgPulse { get; set; }
         

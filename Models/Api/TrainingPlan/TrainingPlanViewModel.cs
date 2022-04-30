@@ -7,7 +7,7 @@ namespace GymApp.Models.Api.TrainingPlan
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public List<ExerciseFormModel> Exercises { get; set; }
     }
 }

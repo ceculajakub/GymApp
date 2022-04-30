@@ -84,7 +84,7 @@ namespace GymApp.Services.UserService
             }
         }
 
-        public User Fetch(int id)
+        public User Fetch(long id)
         {
             var result = context.Users
                 .Where(p => p.Id == id)
