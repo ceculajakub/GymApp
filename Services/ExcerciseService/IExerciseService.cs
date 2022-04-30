@@ -8,7 +8,7 @@ namespace GymApp.Services.ExerciseService
     {
         Exercise Create(ExerciseFormModel model);
         List<ExerciseFormModel> GetList();
-        ExerciseFormModel Fetch(long id);
-        void Delete( long exerciseId);
+        ExerciseFormModel Fetch(int id);
+        void Delete( int exerciseId);
     }
 }

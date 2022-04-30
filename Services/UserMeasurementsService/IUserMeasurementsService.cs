@@ -7,8 +7,8 @@ namespace GymApp.Services.UserMeasurementsService
     public interface IUserMeasurementsService
     {
         UserMeasurement Create(UserMeasurementsFormModel measurement);
-        List<UserMeasurementsViewModel>Fetch(long UserId);
-        UserMeasurement Update(UserMeasurementsFormModel measurement, long UserMeasurementId);
+        List<UserMeasurementsViewModel>Fetch(int UserId);
+        UserMeasurement Update(UserMeasurementsFormModel measurement, int UserMeasurementId);
         
     }
 }

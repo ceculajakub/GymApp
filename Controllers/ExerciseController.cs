@@ -43,7 +43,7 @@ namespace GymApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ExerciseFormModel> Fetch(long id)
+        public ActionResult<ExerciseFormModel> Fetch(int id)
         {
             var result = ExerciseService.Fetch(id);
             if (result == null)
@@ -53,7 +53,7 @@ namespace GymApp.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(long id)
+        public ActionResult Delete(int id)
         {
             ExerciseService.Delete(id);
 

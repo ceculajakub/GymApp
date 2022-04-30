@@ -35,7 +35,7 @@ namespace GymApp.Controllers
 
         [HttpGet("{uid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<List<UserMeasurementsViewModel>> Fetch(long uid)
+        public ActionResult<List<UserMeasurementsViewModel>> Fetch(int uid)
         {
             var entity = UserMeasurementsService.Fetch(uid);
 
@@ -47,7 +47,7 @@ namespace GymApp.Controllers
 
         [HttpPost("{id}/update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Update(long id, [FromBody] UserMeasurementsFormModel model)
+        public ActionResult Update(int id, [FromBody] UserMeasurementsFormModel model)
         {
             var result = UserMeasurementsService.Update(model, id);
 

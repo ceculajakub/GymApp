@@ -5,6 +5,6 @@ namespace GymApp.Services.ExerciseDoneService
 {
     public interface IExerciseDoneService
     {
-        void Create(List<ExerciseDoneFormModel> Exercises, long trainingId);
+        void Create(List<ExerciseDoneFormModel> Exercises, int trainingId);
     }
 }

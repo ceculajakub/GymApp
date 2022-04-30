@@ -11,9 +11,9 @@ namespace GymApp.Models.DataBase
     public class TrainingPlanExercise
     {
         [Key]
-        public long Id { get; set; }
-        public long TrainingId { get; set; }
-        public long ExerciseId { get; set; }
+        public int Id { get; set; }
+        public int TrainingId { get; set; }
+        public int ExerciseId { get; set; }
 
         public TrainingPlan TrainingPlan { get; set; }
         public Exercise Exercise { get; set; }

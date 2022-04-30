@@ -32,7 +32,7 @@ namespace GymApp.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<TrainingViewModel> Fetch(long id)
+        public ActionResult<TrainingViewModel> Fetch(int id)
         {
             var entity = trainingService.Fetch(id);
 
@@ -44,7 +44,7 @@ namespace GymApp.Controllers
 
         [HttpPost("{id}/update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Update(long id, [FromBody] TrainingFormModel model)
+        public ActionResult Update(int id, [FromBody] TrainingFormModel model)
         {
             var result = trainingService.Update(model, id);
 
@@ -57,7 +57,7 @@ namespace GymApp.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Delete(long id)
+        public ActionResult Delete(int id)
         {
             trainingService.Delete(id);
 
