@@ -44,7 +44,7 @@ namespace GymApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<UserViewModel> Fetch(long id)
+        public ActionResult<UserViewModel> Fetch(int id)
         {
             var user = UserService.Fetch(id);
 
@@ -56,7 +56,7 @@ namespace GymApp.Controllers
         
 
         [HttpPost("{id}")]
-        public ActionResult Update(long id, [FromBody] UserFormModel model)
+        public ActionResult Update(int id, [FromBody] UserFormModel model)
         {
             var user = UserService.Fetch(id);
 

@@ -39,7 +39,7 @@ namespace GymApp.Data
 
             builder.Entity<User>()
                 .Property(p => p.Bmi)
-                .HasComputedColumnSql($"[Weight] / ([Height] * [Height]");
+                .HasComputedColumnSql($"ROUND([Weight] / ([Height] * [Height]), 2)");
 
             
                 

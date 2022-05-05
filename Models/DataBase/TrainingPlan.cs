@@ -15,10 +15,10 @@ namespace GymApp.Models.DataBase
         }
 
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public long UserId { get; set; }
+        public int UserId { get; set; }
 
         public User User { get; set; }
         public ICollection<TrainingPlanExercise> TrainingPlanExercises { get; set; }

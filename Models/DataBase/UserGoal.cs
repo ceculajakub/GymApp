@@ -10,8 +10,8 @@ namespace GymApp.Models.DataBase
     public class UserGoal
     {
         [Key]
-        public long Id { get; set; }
-        public long UserId { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }
 

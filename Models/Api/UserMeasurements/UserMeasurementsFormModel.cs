@@ -3,7 +3,7 @@
     public class UserMeasurementsFormModel
     {
         public int Type { get; set; }
-        public long Value { get; set; }
+        public double Value { get; set; }
         
 
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220424185614_Gymappik")]
-    partial class Gymappik
+    [Migration("20220505111522_GymApp")]
+    partial class GymApp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,9 @@ namespace GymApp.Migrations
 
             modelBuilder.Entity("GymApp.Models.DataBase.Exercise", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
@@ -44,28 +44,28 @@ namespace GymApp.Migrations
 
             modelBuilder.Entity("GymApp.Models.DataBase.ExerciseDone", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Equipment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ExerciseId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Pulse")
                         .HasColumnType("int");
 
-                    b.Property<long>("Reps")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Reps")
+                        .HasColumnType("int");
 
-                    b.Property<long>("TrainingId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TrainingId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("Weight")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -76,9 +76,9 @@ namespace GymApp.Migrations
 
             modelBuilder.Entity("GymApp.Models.DataBase.Training", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Attention")
@@ -87,11 +87,11 @@ namespace GymApp.Migrations
                     b.Property<DateTime>("ExecutionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("TrainingPlanId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TrainingPlanId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -102,9 +102,9 @@ namespace GymApp.Migrations
 
             modelBuilder.Entity("GymApp.Models.DataBase.TrainingPlan", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
@@ -113,8 +113,8 @@ namespace GymApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -125,19 +125,19 @@ namespace GymApp.Migrations
 
             modelBuilder.Entity("GymApp.Models.DataBase.TrainingPlanExercise", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ExerciseId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("TrainingId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TrainingId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("TrainingPlanId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("TrainingPlanId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -150,9 +150,9 @@ namespace GymApp.Migrations
 
             modelBuilder.Entity("GymApp.Models.DataBase.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("Bmi")
@@ -185,9 +185,9 @@ namespace GymApp.Migrations
 
             modelBuilder.Entity("GymApp.Models.DataBase.UserGoal", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
@@ -196,8 +196,8 @@ namespace GymApp.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -208,19 +208,19 @@ namespace GymApp.Migrations
 
             modelBuilder.Entity("GymApp.Models.DataBase.UserMeasurement", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("Value")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

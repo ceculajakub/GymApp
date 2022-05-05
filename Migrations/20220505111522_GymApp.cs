@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GymApp.Migrations
 {
-    public partial class TrainingExercisesDoneMeasurements : Migration
+    public partial class GymApp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,8 +11,8 @@ namespace GymApp.Migrations
                 name: "Exercises",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false)
@@ -27,13 +26,15 @@ namespace GymApp.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
                     PasswordSalt = table.Column<byte[]>(nullable: true),
-                    Weight = table.Column<int>(nullable: false),
-                    Height = table.Column<int>(nullable: false)
+                    Weight = table.Column<double>(nullable: false),
+                    Height = table.Column<double>(nullable: false),
+                    Gender = table.Column<string>(nullable: true),
+                    Bmi = table.Column<double>(nullable: false, computedColumnSql: "[Weight] / ([Height] * [Height])")
                 },
                 constraints: table =>
                 {
@@ -44,11 +45,11 @@ namespace GymApp.Migrations
                 name: "TrainingPlans",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    UserId = table.Column<long>(nullable: false)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,9 +66,9 @@ namespace GymApp.Migrations
                 name: "UserGoals",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<long>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false)
                 },
@@ -86,11 +87,11 @@ namespace GymApp.Migrations
                 name: "UserMeasurements",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<int>(nullable: false),
-                    Value = table.Column<long>(nullable: false),
-                    UserId = table.Column<long>(nullable: true)
+                    Value = table.Column<double>(nullable: false),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,11 +108,11 @@ namespace GymApp.Migrations
                 name: "TrainingPlanExercises",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TrainingId = table.Column<long>(nullable: false),
-                    ExerciseId = table.Column<long>(nullable: false),
-                    TrainingPlanId = table.Column<long>(nullable: true)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TrainingId = table.Column<int>(nullable: false),
+                    ExerciseId = table.Column<int>(nullable: false),
+                    TrainingPlanId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -134,10 +135,10 @@ namespace GymApp.Migrations
                 name: "Trainings",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TrainingPlanId = table.Column<long>(nullable: false),
-                    UserId = table.Column<long>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TrainingPlanId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     ExecutionTime = table.Column<DateTime>(nullable: false),
                     Attention = table.Column<string>(nullable: true)
                 },
@@ -156,12 +157,14 @@ namespace GymApp.Migrations
                 name: "ExercisesDone",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TrainingId = table.Column<long>(nullable: false),
-                    ExerciseId = table.Column<long>(nullable: false),
-                    Reps = table.Column<long>(nullable: false),
-                    Weight = table.Column<long>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TrainingId = table.Column<int>(nullable: false),
+                    ExerciseId = table.Column<int>(nullable: false),
+                    Reps = table.Column<int>(nullable: false),
+                    Weight = table.Column<double>(nullable: false),
+                    Equipment = table.Column<string>(nullable: true),
+                    Pulse = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,6 +176,41 @@ namespace GymApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExercisesDone_TrainingId",
+                table: "ExercisesDone",
+                column: "TrainingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingPlanExercises_ExerciseId",
+                table: "TrainingPlanExercises",
+                column: "ExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingPlanExercises_TrainingPlanId",
+                table: "TrainingPlanExercises",
+                column: "TrainingPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingPlans_UserId",
+                table: "TrainingPlans",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trainings_TrainingPlanId",
+                table: "Trainings",
+                column: "TrainingPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserGoals_UserId",
+                table: "UserGoals",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserMeasurements_UserId",
+                table: "UserMeasurements",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

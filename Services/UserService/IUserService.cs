@@ -8,7 +8,7 @@ namespace GymApp.Services.UserService
         User Login(string userName, string password);
         User Create(UserFormModel user, string password);
         bool UserExists(string userName);
-        User Fetch(long id);
+        User Fetch(int id);
         User Update(UserFormModel model, User user);
         
     }

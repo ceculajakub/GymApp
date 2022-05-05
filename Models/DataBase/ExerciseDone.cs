@@ -10,11 +10,11 @@ namespace GymApp.Models.DataBase
     public class ExerciseDone
     {
         [Key]
-        public long Id { get; set; }
-        public long TrainingId { get; set; }
-        public long ExerciseId { get; set; }
-        public long Reps { get; set; }
-        public long Weight { get; set; }
+        public int Id { get; set; }
+        public int TrainingId { get; set; }
+        public int ExerciseId { get; set; }
+        public int Reps { get; set; }
+        public double Weight { get; set; }
         public string Equipment { get; set; }
         public int Pulse { get; set; }
 
