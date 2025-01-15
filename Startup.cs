@@ -1,6 +1,8 @@
 using AutoMapper;
 using GymApp.Data;
+using GymApp.Data.Repositories;
 using GymApp.Models.Api;
+using GymApp.Repositories;
 using GymApp.Services.ExerciseDoneService;
 using GymApp.Services.ExerciseService;
 using GymApp.Services.TrainingPlanService;
@@ -28,7 +30,8 @@ namespace GymApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             
 
@@ -46,6 +49,14 @@ namespace GymApp
             services.AddScoped<ITrainingPlanService, TrainingPlanService>();
             services.AddScoped<ITrainingService, TrainingService>();
             services.AddScoped<IUserMeasurementsService, UserMeasurementsService>();
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
+            services.AddScoped<ITrainingRepository, TrainingRepository>();
+            services.AddScoped<IExerciseDoneRepository, ExerciseDoneRepository>();
+            services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
+            services.AddScoped<IUserMeasurementsRepository, UserMeasurementsRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+
 
             services.AddScoped<AutoMapperProfile>();
 
@@ -54,7 +65,7 @@ namespace GymApp
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "Api", Version = "v1" });
             });
 
-            services.AddControllers();
+            services.AddControllersWithViews();
 
             services.AddRazorPages();
         }

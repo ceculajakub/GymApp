@@ -1,5 +1,4 @@
 ﻿using GymApp.Models.Api.TrainingPlan;
-using GymApp.Services;
 using GymApp.Services.TrainingPlanService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

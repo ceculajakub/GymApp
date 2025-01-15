@@ -1,23 +1,22 @@
-﻿using AutoMapper;
-using GymApp.Data;
+﻿using System;
+using AutoMapper;
 using GymApp.Models.Api.Training;
 using GymApp.Models.DataBase;
+using GymApp.Repositories;
 using GymApp.Services.ExerciseDoneService;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GymApp.Services.TrainingService
 {
+
     public class TrainingService : ITrainingService
     {
-        private readonly DataContext _context;
+        private readonly ITrainingRepository _trainingRepository;
+        private readonly IExerciseDoneService _exerciseDoneService;
         private IMapper _mapper { get; }
-        private IExerciseDoneService _exerciseDoneService { get; set; }
-        public TrainingService(DataContext context, IMapper mapper, IExerciseDoneService exerciseDoneService)
+
+        public TrainingService(ITrainingRepository trainingRepository, IMapper mapper, IExerciseDoneService exerciseDoneService)
         {
-            _context = context;
+            _trainingRepository = trainingRepository;
             _mapper = mapper;
             _exerciseDoneService = exerciseDoneService;
         }
@@ -26,57 +25,35 @@ namespace GymApp.Services.TrainingService
         {
             var training = _mapper.Map<Training>(model);
             training.ExecutionTime = DateTime.Now;
+            training.UserId = _trainingRepository.GetById(training.TrainingPlanId).UserId;
 
-            training.UserId = _context.TrainingPlans
-                                .Where(p => p.Id == training.TrainingPlanId)
-                                .Select(p => p.UserId)
-                                .FirstOrDefault();
-
-            _context.Add<Training>(training);
-            _context.SaveChanges();
+            var createdTraining = _trainingRepository.Create(training);
 
             if (model.ExercisesDone != null)
-                _exerciseDoneService.Create(model.ExercisesDone, training.Id);
+                _exerciseDoneService.Create(model.ExercisesDone, createdTraining.Id);
 
-            return training;
+            return createdTraining;
         }
-
-        
 
         public TrainingViewModel Fetch(int trainingId)
         {
-            var entity = _context.Trainings
-                                .Where(p => p.Id == trainingId)
-                                .Include(p => p.ExercisesDone)
-                                .FirstOrDefault();
-
+            var entity = _trainingRepository.GetById(trainingId);
             return _mapper.Map<TrainingViewModel>(entity);
         }
 
         public Training Update(TrainingFormModel model, int trainingId)
         {
-            var entity = _context.Trainings
-                                .Where(p => p.Id == trainingId)
-                                .Include(p => p.ExercisesDone)
-                                .FirstOrDefault();
+            var entity = _trainingRepository.GetById(trainingId);
+            var updatedEntity = _mapper.Map<TrainingFormModel, Training>(model, entity);
 
-            var result = _mapper.Map<TrainingFormModel, Training>(model, entity);
-
-            _context.Update<Training>(result);
-            _context.SaveChanges();
-
-            return result;
+            _trainingRepository.Update(updatedEntity);
+            return updatedEntity;
         }
 
         public void Delete(int trainingId)
         {
-            var entity = _context.Trainings
-                                .Where(p => p.Id == trainingId)
-                                .Include(p => p.ExercisesDone)
-                                .FirstOrDefault();
-
-            _context.Remove<Training>(entity);
-            _context.SaveChanges();
+            var entity = _trainingRepository.GetById(trainingId);
+            _trainingRepository.Delete(entity);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using GymApp.Models.Api.ExerciseDone;
-using GymApp.Models.DataBase;
 using System;
 using System.Collections.Generic;
 

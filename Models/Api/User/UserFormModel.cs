@@ -1,5 +1,4 @@
-﻿using System;
-namespace GymApp.Models.Api.User
+﻿namespace GymApp.Models.Api.User
 {
     public class UserFormModel
     {

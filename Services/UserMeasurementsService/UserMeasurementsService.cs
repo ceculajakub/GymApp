@@ -1,57 +1,43 @@
-﻿using AutoMapper;
-using GymApp.Data;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using GymApp.Models.Api.UserMeasurements;
 using GymApp.Models.DataBase;
-using System;
-using System.Text;
-using System.Linq;
-using System.Collections.Generic;
-
+using GymApp.Repositories;
 
 namespace GymApp.Services.UserMeasurementsService
 {
     public class UserMeasurementsService : IUserMeasurementsService
     {
-        private readonly DataContext context;
-        private IMapper mapper { get; }
-        public UserMeasurementsService(DataContext context, IMapper mapper)
+        private readonly IUserMeasurementsRepository _userMeasurementsRepository;
+        private IMapper _mapper { get; }
+
+        public UserMeasurementsService(IUserMeasurementsRepository userMeasurementsRepository, IMapper mapper)
         {
-            this.context = context;
-            this.mapper = mapper;
+            _userMeasurementsRepository = userMeasurementsRepository;
+            _mapper = mapper;
         }
 
         public UserMeasurement Create(UserMeasurementsFormModel model)
         {
-            var measurement = mapper.Map<UserMeasurement>(model);
-
-
-            context.Add<UserMeasurement>(measurement);
-            context.SaveChanges();
-
-            return measurement;
+            var measurement = _mapper.Map<UserMeasurement>(model);
+            return _userMeasurementsRepository.Add(measurement);
         }
+
         public List<UserMeasurementsViewModel> Fetch(int uid)
         {
-            var result = context.UserMeasurements
-                                .Where(p => p.Id == uid)
-                                .ToList();
-
-            return mapper.Map<List<UserMeasurementsViewModel>>(result);
+            var measurements = _userMeasurementsRepository.GetByUserId(uid);
+            return _mapper.Map<List<UserMeasurementsViewModel>>(measurements);
         }
+
         public UserMeasurement Update(UserMeasurementsFormModel model, int measurementId)
         {
-            var entity = context.UserMeasurements
-                                .Where(p => p.Id == measurementId)
-                                .FirstOrDefault();
+            var existingMeasurement = _userMeasurementsRepository.GetById(measurementId);
 
-            var result = mapper.Map<UserMeasurementsFormModel, UserMeasurement>(model, entity);
+            if (existingMeasurement == null)
+                return null;
 
-            context.Update<UserMeasurement>(result);
-            context.SaveChanges();
-
-            return result;
+            var updatedMeasurement = _mapper.Map(model, existingMeasurement);
+            return _userMeasurementsRepository.Update(updatedMeasurement);
         }
-        
-
     }
 }

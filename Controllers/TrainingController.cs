@@ -2,14 +2,15 @@
 using GymApp.Services.TrainingService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace GymApp.Controllers
 {
+    // Kontroler do zarządzania planami treningowymi. Równie stworzony w oparciu o zasady SOLID i obiektowy paradygmat programowania
     [ApiController]
     [Route("api/training")]
     public class TrainingController : Controller
     {
+
         private ITrainingService trainingService { get; set; }
 
         public TrainingController(ITrainingService training)
@@ -42,12 +43,12 @@ namespace GymApp.Controllers
             return entity;
         }
 
+        // Aktualizacja planu treningowego
         [HttpPost("{id}/update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult Update(int id, [FromBody] TrainingFormModel model)
         {
             var result = trainingService.Update(model, id);
-
 
             if (result == null)
                 return BadRequest();
@@ -63,7 +64,5 @@ namespace GymApp.Controllers
 
             return Ok();
         }
-
-    
     }
 }

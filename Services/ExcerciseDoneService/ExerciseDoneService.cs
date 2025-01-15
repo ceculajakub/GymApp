@@ -1,32 +1,33 @@
-﻿using AutoMapper;
-using GymApp.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using GymApp.Data.Repositories;
 using GymApp.Models.Api.ExercisesDone;
 using GymApp.Models.DataBase;
-using GymApp.Services.TrainingService;
-using System.Collections.Generic;
 
 namespace GymApp.Services.ExerciseDoneService
 {
     public class ExerciseDoneService : IExerciseDoneService
     {
-        private readonly DataContext _context;
+        private readonly IExerciseDoneRepository _exerciseDoneRepository;
         private IMapper _mapper { get; }
-        public ExerciseDoneService(DataContext context, IMapper mapper)
+
+        public ExerciseDoneService(IExerciseDoneRepository exerciseDoneRepository, IMapper mapper)
         {
-            _context = context;
+            _exerciseDoneRepository = exerciseDoneRepository;
             _mapper = mapper;
         }
 
-        public void Create(List<ExerciseDoneFormModel> Exercises, int trainingId)
+        public void Create(List<ExerciseDoneFormModel> exercises, int trainingId)
         {
-            foreach(var exercise in Exercises)
+            var entities = exercises.Select(exercise =>
             {
                 var entity = _mapper.Map<ExerciseDone>(exercise);
                 entity.TrainingId = trainingId;
+                return entity;
+            }).ToList();
 
-                _context.Add<ExerciseDone>(entity);
-            }
-            _context.SaveChanges();
+            _exerciseDoneRepository.Create(entities);
         }
     }
 }

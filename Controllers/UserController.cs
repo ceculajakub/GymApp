@@ -3,7 +3,6 @@ using GymApp.Models.Api.User;
 using GymApp.Services.UserService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace GymApp.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GymApp.Data;
+using GymApp.Data.Repositories;
 using GymApp.Models.Api.TrainingPlan;
 using GymApp.Models.DataBase;
 
@@ -7,12 +7,12 @@ namespace GymApp.Services.TrainingPlanService
 {
     public class TrainingPlanService : ITrainingPlanService
     {
-        private DataContext _context { get; }
+        private ITrainingPlanRepository _trainingPlanRepository { get; }
         private IMapper _mapper { get; }
 
-        public TrainingPlanService(DataContext _context, IMapper mapper)
+        public TrainingPlanService(ITrainingPlanRepository trainingPlanRepository, IMapper mapper)
         {
-            this._context = _context;
+            _trainingPlanRepository = trainingPlanRepository;
             _mapper = mapper;
         }
 
@@ -20,8 +20,7 @@ namespace GymApp.Services.TrainingPlanService
         {
             var entity = _mapper.Map<TrainingPlan>(model);
 
-            _context.Add<TrainingPlan>(entity);
-            _context.SaveChanges();
+            _trainingPlanRepository.Add(entity);
 
             return entity;
         }

@@ -1,58 +1,46 @@
-﻿using AutoMapper;
-using GymApp.Data;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using GymApp.Data.Repositories;
 using GymApp.Models.Api.Exercise;
 using GymApp.Models.DataBase;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GymApp.Services.ExerciseService
 {
+    // Serwis odpowiedzialny za logikę biznesową dotyczącą ćwiczeń.
+    // Wykorzystuje repozytorium do operacji na bazie danych, w celu uniknięcia podwójnej odpowiedzialności serwisu
     public class ExerciseService : IExerciseService
     {
-        private readonly DataContext _context;
+        private readonly IExerciseRepository _exerciseRepository;
         private IMapper _mapper { get; }
-        public ExerciseService(DataContext _context, IMapper mapper)
+
+        public ExerciseService(IExerciseRepository exerciseRepository, IMapper mapper)
         {
-            this._context = _context;
+            _exerciseRepository = exerciseRepository;
             _mapper = mapper;
         }
 
         public Exercise Create(ExerciseFormModel model)
         {
             var entity = _mapper.Map<Exercise>(model);
-
-            _context.Add<Exercise>(entity);
-            _context.SaveChanges();
-
-            return entity;
+            return _exerciseRepository.Create(entity);
         }
 
         public List<ExerciseFormModel> GetList()
         {
-            var Exercises = _context.Exercises.ToList();
-
-            return _mapper.Map<List<ExerciseFormModel>>(Exercises);
+            var exercises = _exerciseRepository.GetAll();
+            return _mapper.Map<List<ExerciseFormModel>>(exercises);
         }
 
         public ExerciseFormModel Fetch(int id)
         {
-            var Exercise = _context.Exercises
-                                .Where(x => x.Id == id)
-                                .FirstOrDefault();
-
-            return _mapper.Map<ExerciseFormModel>(Exercise);
+            var exercise = _exerciseRepository.GetById(id);
+            return _mapper.Map<ExerciseFormModel>(exercise);
         }
-
 
         public void Delete(int exerciseId)
         {
-            var entity = _context.Exercises
-                .Where(x => x.Id == exerciseId)
-                .FirstOrDefault();
-
-            _context.Exercises.Remove(entity);
-
-            _context.SaveChanges();
+            var entity = _exerciseRepository.GetById(exerciseId);
+            _exerciseRepository.Delete(entity);
         }
     }
 }

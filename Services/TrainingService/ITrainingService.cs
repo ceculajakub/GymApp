@@ -1,6 +1,5 @@
 ﻿using GymApp.Models.Api.Training;
 using GymApp.Models.DataBase;
-using System.Collections.Generic;
 
 namespace GymApp.Services.TrainingService
 {

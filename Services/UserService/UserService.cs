@@ -1,32 +1,29 @@
-﻿using AutoMapper;
-using GymApp.Data;
+﻿using System;
+using AutoMapper;
 using GymApp.Models.Api.User;
 using GymApp.Models.DataBase;
-using System;
+using GymApp.Repositories;
 using System.Linq;
 using System.Text;
-
 
 namespace GymApp.Services.UserService
 {
     public class UserService : IUserService
     {
-        private readonly DataContext context;
+        private readonly IUserRepository _userRepository;
         private IMapper Mapper { get; }
-        public UserService(DataContext context, IMapper mapper)
+
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
-            this.context = context;
-            this.Mapper = mapper;
+            _userRepository = userRepository;
+            Mapper = mapper;
         }
 
         public User Login(string userName, string password)
         {
-            var user = context.Users.FirstOrDefault(x => x.Username.Equals(userName));
+            var user = _userRepository.GetByUsername(userName);
 
-            if (user == null)
-                return null;
-
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
             return user;
@@ -41,23 +38,16 @@ namespace GymApp.Services.UserService
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+
             if (user.Height > 100)
-            {
                 user.Height /= 100;
-            }
 
-            context.Users.Add(user);
-            context.SaveChanges();
-
-            return user;
+            return _userRepository.Add(user);
         }
 
         public bool UserExists(string userName)
         {
-            if (context.Users.Any(x => x.Username.Equals(userName)))
-                return true;
-
-            return false;
+            return _userRepository.UserExists(userName);
         }
 
         private void CreatePasswordHashSalt(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -75,22 +65,13 @@ namespace GymApp.Services.UserService
             {
                 var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-                for (var i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != password[i])
-                        return false;
-                }
-                return true;
+                return computedHash.SequenceEqual(passwordHash);
             }
         }
 
         public User Fetch(int id)
         {
-            var result = context.Users
-                .Where(p => p.Id == id)
-                .FirstOrDefault();
-
-            return result;
+            return _userRepository.GetById(id);
         }
 
         public User Update(UserFormModel model, User user)
@@ -101,28 +82,21 @@ namespace GymApp.Services.UserService
             if (!String.IsNullOrEmpty(model.Password))
             {
                 CreatePasswordHashSalt(model.Password, out passwordHash, out passwordSalt);
-
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
             }
-            
-            
+
             user.Height = updateUser.Height > 0 ? updateUser.Height : user.Height;
             user.Weight = updateUser.Weight > 0 ? updateUser.Weight : user.Weight;
             if (!String.IsNullOrEmpty(updateUser.Username))
                 user.Username = updateUser.Username;
-            if(!String.IsNullOrEmpty(updateUser.Gender))
+            if (!String.IsNullOrEmpty(updateUser.Gender))
                 user.Gender = updateUser.Gender;
-            
-            if (user.Height > 100)
-            {
-                user.Height /= 100;
-            }
-            context.Users.Update(user);
-            context.SaveChanges();
 
-            return user;
+            if (user.Height > 100)
+                user.Height /= 100;
+
+            return _userRepository.Update(user);
         }
-      
     }
 }
